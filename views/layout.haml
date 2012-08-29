@@ -1,0 +1,22 @@
+<!doctype html>
+%html
+  %head
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %title= settings.appname
+    %link{:href => "css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}
+    %script{:src => "js/bootstrap.min.js"}
+  %body
+
+    .navbar
+      .navbar-inner
+        %a.brand{:href => "/"}= settings.appname
+        %ul.nav
+          %li
+            %a{:href => "/"} Send Push
+          %li
+            %a{:href => "/add"} Add Device
+    - if @alert
+      .alert= @alert
+
+    .container
+      = yield

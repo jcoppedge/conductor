@@ -1,0 +1,19 @@
+%form{:action => "/add", :method => "post", :class => "form-horizontal"}
+  %fieldset
+    %legend Add Device
+
+    .alert-error
+      - errors_for(@device)
+
+    .control-group
+      %label.control-label{:for => "name"} Name
+      .controls
+        %input{:name => "name", :type => "text", :value => @device.name}
+
+    .control-group
+      %label.control-label{:for => "name"} Remote Device UUID
+      .controls
+        %input.input-xlarge{:name => "uuid", :type => "text", :value => @device.uuid}
+
+    .form-actions
+      %button{:type => "submit", :class => "btn btn-primary"} Save

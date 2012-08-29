@@ -1,0 +1,29 @@
+%form{:action => "/", :method => "post", :class => "form-horizontal"}
+  %fieldset
+    %legend Send Push Notification
+
+    .alert-error
+      - errors_for(@notification, 'Error sending notification')
+
+    .control-group
+      %label.control-label{:for => "notification[message]"} Message
+      .controls
+        %input.input-xlarge{:name => "notification[message]", :type => "text"}
+
+    .control-group
+      %label.control-label{:for => "device_id"} Device
+      .controls
+        %select{:name => "device_id"}
+          - @devices.each do |device|
+            %option{:value => device.id, :selected => (device.id == @device.id)}= device.name
+
+    .control-group
+      %label.control-label{:for => "notification[category]"} Category
+      .controls
+        %select{:name => "notification[category]"}
+          %option alarm
+          %option trouble
+          %option activity
+
+    .form-actions
+      %button{:type => "submit", :class => "btn btn-primary"} Send
