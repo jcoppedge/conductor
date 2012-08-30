@@ -1,12 +1,18 @@
+%fieldset
+  %legend Devices
+
 %table.table
   %tr
     %th Name
     %th UUID
+    %th Created
+    %th
   - @devices.each do |device|
     %tr
       %td= device.name
       %td= device.uuid
+      %td= device.created_at.localtime if device.created_at
       %td
-        %form{:action => "/devices/#{device.id}", :method => "post"}
+        %form{:action => "/devices/#{device.id}", :method => "post", :onsubmit => "return confirm('Are you sure you wish to delete #{device.name}?')"}
           %input{:type => "hidden", :name => "_method", :value => "delete"}
           %button{:type => "submit", :class => "btn btn-mini btn-danger"} Delete

@@ -4,19 +4,31 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %title= settings.appname
     %link{:href => "/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}
+    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"}
     %script{:src => "/js/bootstrap.min.js"}
   %body
-
-    .navbar
-      .navbar-inner
-        %a.brand{:href => "/"}= settings.appname
-        %ul.nav
-          %li
-            %a{:href => "/"} Send Push
-          %li
-            %a{:href => "/add"} Add Device
-    - if flash[:notice]
-      .alert= flash[:notice]
-
     .container
+      .navbar
+        .navbar-inner
+          %a.brand{:href => "/"}= settings.appname
+          %ul.nav
+            %li
+              %a{:href => "/"} Send Push
+            %li
+              %a{:href => "/add"} Add Device
+            %li
+              %a{:href => "/devices"} List Devices
+            %li
+              %a{:href => "/notifications"} List Notifications
+
+      - %w(success info error).each do |k|
+        - if flash[k]
+          %div{:id => k, :class => "alert alert-#{k} in fade"}
+            = flash[k]
+            %button.close{"data-dismiss" => "alert", :type => "button"} ×
+          - if k == "success"
+            :javascript
+              setTimeout(function() {
+                $(".alert.alert-success").alert('close')
+              }, 5000)
       = yield
