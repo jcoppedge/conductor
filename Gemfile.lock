@@ -49,5 +49,6 @@ DEPENDENCIES
   bson_ext
   haml
   mongo_mapper
+  rack-flash3
   sinatra
   thin
