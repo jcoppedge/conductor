@@ -1,0 +1,12 @@
+%table.table
+  %tr
+    %th Name
+    %th UUID
+  - @devices.each do |device|
+    %tr
+      %td= device.name
+      %td= device.uuid
+      %td
+        %form{:action => "/devices/#{device.id}", :method => "post"}
+          %input{:type => "hidden", :name => "_method", :value => "delete"}
+          %button{:type => "submit", :class => "btn btn-mini btn-danger"} Delete

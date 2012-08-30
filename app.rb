@@ -74,3 +74,17 @@ post '/add' do
   end
   haml :add
 end
+
+get '/devices' do
+  @devices = Device.all
+  haml :devices
+end
+
+delete '/devices/:id' do |id|
+  # @devices = Device.all
+  @device = Device.find(id)
+  @device.destroy
+
+  flash[:notice] = 'Successfully deleted device.'
+  redirect '/devices'
+end
