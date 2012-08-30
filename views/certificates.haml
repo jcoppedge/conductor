@@ -1,0 +1,21 @@
+= Certificate.all
+= Certificate.list_files
+%form{:action => "/certificates", :method => "post", :class => "form-horizontal"}
+  %fieldset
+    %legend Certificates
+
+    .alert-error
+      - errors_for(@certificate)
+
+    .control-group
+      %label.control-label{:for => "certificate[name]"} Name
+      .controls
+        %input.input-xlarge{:name => "certificate[name]", :type => "text"}
+
+    .control-group
+      %label.control-label{:for => "certificate[contents]"} Contents
+      .controls
+        %textarea.span10{:name => "certificate[contents]", :rows => "40", :style => 'font-family: Monaco, Menlo, Consolas, "Courier New", monospace;'}
+
+    .form-actions
+      %button{:type => "submit", :class => "btn btn-primary"} Save

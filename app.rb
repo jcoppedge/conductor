@@ -5,6 +5,7 @@ require 'mongo_mapper'
 
 require_relative 'models/device.rb'
 require_relative 'models/notification.rb'
+require_relative 'models/certificate.rb'
 require_relative 'helpers/helper.rb'
 
 configure do
@@ -100,4 +101,18 @@ end
 get '/notifications' do
   @notifications = Notification.all(:order => :created_at.desc)
   haml :notifications
+end
+
+get '/certificates' do
+  haml :certificates
+end
+
+post '/certificates' do
+  @certificate = Certificate.new(params[:certificate])
+  if @certificate.save
+    flash[:notice] = 'Certificate saved.'
+  else
+    flash[:error] = 'Error saving certificate.'
+  end
+  haml :certificates
 end
