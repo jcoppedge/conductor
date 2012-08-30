@@ -15,8 +15,8 @@
             %a{:href => "/"} Send Push
           %li
             %a{:href => "/add"} Add Device
-    - if @alert
-      .alert= @alert
+    - if flash[:notice]
+      .alert= flash[:notice]
 
     .container
       = yield

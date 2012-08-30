@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'rack-flash'
 require 'haml'
 require 'mongo_mapper'
 
@@ -28,6 +29,10 @@ MongoMapper.connection = Mongo::Connection.new(settings.mongo_hostname, settings
 MongoMapper.database = settings.mongo_database
 MongoMapper.database.authenticate(settings.mongo_username, settings.mongo_password)
 
+# enable :methodoverride
+# use Rack::MethodOverride
+enable :sessions
+use Rack::Flash#, :sweep => true
 
 get '/' do
   @devices = Device.all
