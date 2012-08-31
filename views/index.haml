@@ -25,5 +25,12 @@
           %option trouble
           %option activity
 
+    .control-group
+      %label.control-label{:for => "certificate[file_name]"} Certificate
+      .controls
+        %select{:name => "certificate[file_name]"}
+          - @certificates.each do |certificate|
+            %option{:value => certificate.file_name, :selected => (certificate.file_name == @certificate.file_name)}= certificate.file_name
+
     .form-actions
       %button{:type => "submit", :class => "btn btn-primary"} Send

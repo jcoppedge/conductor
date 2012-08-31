@@ -5,6 +5,7 @@ require 'mongo_mapper'
 
 require_relative 'models/device.rb'
 require_relative 'models/notification.rb'
+require_relative 'models/certificate.rb'
 require_relative 'helpers/helper.rb'
 
 configure do
@@ -42,26 +43,31 @@ configure do
   use Rack::Flash, :sweep => true
 end
 
+before do
+  @params = params
+  if request.path_info =~ /^\/$/
+    @devices = Device.all(:order => :name.asc)
+    @device = Device.find(params[:device_id])||Device.new
+    @certificates = Certificate.all
+    @certificate = params[:certificate] && Certificate.find_by_file_name(params[:certificate][:file_name])||Certificate.new
+  end
+end
+
 get '/' do
-  @devices = Device.all(:order => :name.asc)
-  @device = Device.new
   haml :index
 end
 
 post '/' do
-  @devices = Device.all(:order => :name.asc)
-  @device = Device.find(params[:device_id])||Device.new
-
-  unless @device.new_record?
+  unless @device.new_record? || @certificate.new_record?
     @notification = Notification.new(params[:notification])
+    @notification.certificate = @certificate
     @notification.device = @device
-    @notification.save
+    @notification.save and @notification.push
     if @notification.errors.empty?
-      @notification.push
       flash[:success] = "Sending \"#{@notification.message}\" to #{@device.name}"
     end
   else
-    flash[:info] = "Selected device not found."
+    flash[:info] = "Selected device or certificate not found."
   end
   haml :index
 end

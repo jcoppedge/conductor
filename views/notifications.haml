@@ -7,9 +7,11 @@
     %th Category
     %th Device
     %th Created
+    %th Certificate
   - @notifications.each do |notification|
     %tr
       %td= notification.message
       %td= notification.category
       %td= notification.device.name if notification.device
       %td= notification.created_at.localtime if notification.created_at
+      %td= notification.pretty_certificate
