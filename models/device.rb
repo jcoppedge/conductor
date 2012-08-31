@@ -11,4 +11,7 @@ class Device
   validates_presence_of :name
   validates_presence_of :uuid
 
+  def obfuscated_uuid
+    "#{uuid[0,5]}..#{uuid[-5,5]}"
+  end
 end
