@@ -20,7 +20,6 @@ class Notification
     begin
       other = {:category => category, :system_id => 123, :remote_id => 456, :expires_at => (Time.now+(5*60)).to_i}
       APNS.pem = certificate
-      puts "sending #{device.uuid} #{message} with #{certificate}"
       APNS.send_notification(device.uuid, :alert => message, :other => other)
     rescue OpenSSL::X509::CertificateError => e
       errors.add('certficate', "is invalid, #{e.message}")
@@ -30,7 +29,6 @@ class Notification
   end
 
   def certificate=(c)
-    puts c.inspect
     self[:certificate] = c.file_path
   end
 
