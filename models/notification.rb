@@ -33,6 +33,6 @@ class Notification
   end
 
   def pretty_certificate
-    certificate and certificate.gsub("#{Dir.pwd}/certificate/", '')
+    certificate and certificate.gsub(/.*\/certificate\//, '')
   end
 end
