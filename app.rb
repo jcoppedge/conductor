@@ -44,6 +44,9 @@ configure do
 end
 
 before do
+  # Does not seem the best place for this, but the Time.zone settings seems to be ignored if added in a configure block.
+  # For now just set it for each request.
+  Time.zone = "Central Time (US & Canada)"
   @params = params
   if request.path_info =~ /^\/$/
     @devices = Device.all(:order => :name.asc)
