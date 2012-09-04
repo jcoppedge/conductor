@@ -27,7 +27,7 @@ configure do
     set :mongo_password, services['mongodb-1.8'].first['credentials']['password']
   end
 
-  MongoMapper.connection = Mongo::Connection.new(settings.mongo_hostname, settings.mongo_port, :pool_size => 5, :timeout => 5)
+  MongoMapper.connection = Mongo::Connection.new(settings.mongo_hostname, settings.mongo_port, :pool_size => 5, :pool_timeout => 5)
   MongoMapper.database = settings.mongo_database
   MongoMapper.database.authenticate(settings.mongo_username, settings.mongo_password)
 
